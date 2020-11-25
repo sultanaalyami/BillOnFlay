@@ -1,0 +1,197 @@
+<div id="app"></div>
+
+<!DOCTYPE html>
+<html dir="rtl">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="Content-Type" content="text/html; charset = utf-8" />
+
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/jquery-validate/jquery.validate.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/ajax/dist/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="~/lib/ajax/dist/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="~/lib/fonts/fonts.css" />
+
+
+    @*<script type="text/javascript" src="~/IndexedDB/IndexedDB.js"></script>
+        <script type="text/javascript" src="~/IndexedDB/data.js"></script>
+        <script type="text/javascript" src="~/IndexedDB/Logic.js"></script>*@
+
+    <link href="~/css/Style.css" rel="stylesheet" />
+    <link href="~/css/Mobile.css" rel="stylesheet" />
+    <link href="~/css/parallax.css" rel="stylesheet" />
+    <link href="~/css/Login.css" rel="stylesheet" />
+    <meta http-equiv="Content-Type" content="text/html; charset = utf-8" />
+</head>
+<body>
+    <div class="bgimg-1">
+        <div class="caption">
+            <span onclick="document.getElementById('id01').style.display='block'" class="border"><a href="#menuse">MENU</a></span>
+
+            @*<button onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Login</button>*@
+
+            <div id="id01" class="modal">
+
+                <div class="container">
+
+
+
+                    <form class="modal-content animate" asp-controller="menus" asp-action="ProcessFile" method="post">
+
+                        @*<partial name="_ProcessFile" />*@
+                        <div class="imgcontainer">
+                            <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+                            <span class="">
+                                @*Menu.js*@
+                                <img id="logo" height="150" width="300" src="/images/logo.jpg" alt="Avatar" class="btn" />
+
+                                <input @*data-ajax-update=""*@ data-ajax-url="/api/ApiMenus/id" data-ajax="true" data-ajax-method="post" asp-for="LogoPhotoPath" class="form-control" id="files" multiple hidden type="file"
+                                       onchange="uploadFiles('files');"
+                                       data-ajax-begin="onBegin()"
+                                       data-ajax-complete="onComplete"
+                                       data-ajax-failure="onFailed"
+                                       data-ajax-success="onSuccess" />
+                                @*<div id="this" data-ajax="true" data-ajax-method="post" data-ajax-url="/api/ApiMenus/id" data-ajax-update="#this" data-ajax-failure="failed" success="" enctype="multipart/form-data" class="">*@
+                            </span>
+                   
+                        </div>
+
+                        <partial name="_Register" />
+
+                    </form>
+                </div>
+            </div>
+
+            <script>
+                // Get the modal
+                var modal = document.getElementById('id01');
+
+                // When the user clicks anywhere outside of the modal, close it
+                window.onclick = function (event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+
+        </div>
+    </div>
+
+    <div id="menuse" class="menu_section card-deck">
+        <br />
+        @ViewData["SessionId"]
+        @ViewData["cookieV"]
+        <form enctype="multipart/form-data" asp-controller="menus" asp-action="create" method="post" class="mt-3">
+            <div class="header_border">
+                <div class="text-center menu_header">
+                    <input id="header_name" class="text-center" placeholder="مشروبات" type="text" />
+                </div>
+                <hr />
+                <div class="m-2">
+                    <ul class="a">
+                        <li class="text-left mobile_font">
+                            <div class="menu_header">
+                                <span class="containerOfImage">
+                                    <a class="btn"></a>
+                                </span>
+                                <input class="text-center" placeholder="كافيه لاتيه" type="text" />
+                                <input maxlength="4" size="4" class="text-center" placeholder="1 ريال" type="text" />
+                                <span class="containerOfImage">
+                                    <a class="addbtn"></a>
+                                </span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <br />
+        </form>
+
+    </div>
+    <br />
+
+    <div class="bgimg-2">
+        <div style="top:3px" class="caption">
+            <span><a id="addmenu" class="order-now" href="#menuse">اضافة قائمة</a></span>
+        </div>
+    </div>
+
+    <div style="position:relative;">
+        <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+            <p>Scroll up and down to really get the feeling of how Parallax Scrolling works.</p>
+            <p>ONLine</p><div id="online"></div>
+            @*////////////////////*@
+
+            <div class="container">
+                <div class="row">&nbsp;</div>
+                <div class="row">
+                    <div class="col-6">&nbsp;</div>
+                    <div class="col-6">
+                        User..........<input type="text" id="userInput" />
+                        <br />
+                        Message...<input type="text" id="messageInput" />
+                        <input type="button" id="sendButton" value="Send Message" />
+                        <br />
+                        <input type="button" id="sendToButton" value="Send to user" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12">
+                        <hr />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-6">&nbsp;</div>
+                    <div class="col-6">
+                        <ul id="messagesList"></ul>
+                    </div>
+                </div>
+            </div>
+
+            @*///////////////////////*@
+        </div>
+    </div>
+
+    <div class="bgimg-3">
+        <div class="caption">
+            <span class="border" style="background-color:transparent;font-size:25px;color: #f7f7f7;">SCROLL UP</span>
+        </div>
+    </div>
+
+    <div style="position:relative;">
+        <div style="color:#ddd;background-color:#282E34;text-align:center;padding:50px 80px;text-align: justify;">
+            <p>Scroll up and down to really get the feeling of how Parallax Scrolling works.</p>
+        </div>
+    </div>
+
+    <div class="bgimg-1">
+        <div class="caption">
+            <span class="border">COOL!</span>
+        </div>
+    </div>
+
+
+    <div class="notyf"></div><div class="notyf-announcer" aria-atomic="true" aria-live="polite" style="border: 0px; clip: rect(0px, 0px, 0px, 0px); height: 1px; margin: -1px; overflow: hidden; padding: 0px; position: absolute; width: 1px; outline: 0px;"></div>
+
+
+
+
+
+    <script src="~/lib/signalr/dist/browser/signalr.js"></script>
+    <script src="~/js/chat.js"></script>
+    <script src="~/js/Menu.js"></script>
+    @*@section Scripts{
+        <script>
+            $(window).unload(function () {
+                //$.cookies.del('myCookie');
+                $(window).URL("./menus/Index")
+            });
+        </script>
+        }*@
+</body>
+</html>
